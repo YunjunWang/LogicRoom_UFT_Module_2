@@ -10,4 +10,12 @@ export default class BooksPresenter {
       callback(booksVm);
     });
   };
+
+  addBook(bookPm) {
+    booksRepository.addBook(bookPm);
+  }
+
+  reset() {
+    booksRepository.reset();
+  }
 }

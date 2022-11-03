@@ -4,7 +4,7 @@ import Observable from "../Shared/Observable.js";
 class BooksRepository {
   httpGateway = null;
   programmersModel = null;
-  apiUrl = "https://api.logicroom.co/api/pete@logicroom.co/";
+  apiUrl = "https://api.logicroom.co/api/yunjun.wangirl@gmail.com/";
 
   constructor() {
     this.httpGateway = new HttpGateway();
@@ -13,8 +13,22 @@ class BooksRepository {
 
   getBooks = async (callback) => {
     this.programmersModel.subscribe(callback);
-    
+
     await this.loadApiData();
+    this.programmersModel.notify();
+  };
+
+  addBook = async (bookPm) => {
+    await this.addApiData(bookPm);
+    await this.loadApiData();
+
+    this.programmersModel.notify();
+  };
+
+  reset = async () => {
+    await this.resetApiData();
+    await this.loadApiData();
+
     this.programmersModel.notify();
   };
 
@@ -23,6 +37,18 @@ class BooksRepository {
     this.programmersModel.value = booksDto.result.map((bookDto) => {
       return bookDto;
     });
+  };
+
+  addApiData = async (bookPm) => {
+    const bookDto = {
+      name: bookPm.name,
+      author: bookPm.author,
+    };
+    await this.httpGateway.post(this.apiUrl + "books", bookDto);
+  };
+
+  resetApiData = async () => {
+    await this.httpGateway.get(this.apiUrl + "reset");
   };
 }
 
