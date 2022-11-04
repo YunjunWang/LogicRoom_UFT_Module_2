@@ -12,9 +12,14 @@ class BooksRepository {
   }
 
   getBooks = async (callback) => {
+    // register the passed in callback which is transformPmToVm function
+    // into the observer object programmersModel's observers list
     this.programmersModel.subscribe(callback);
 
     await this.loadApiData();
+
+    // the Observable object notify each observer in its observers list
+    // if the observer is a function, it's get called
     this.programmersModel.notify();
   };
 
@@ -22,6 +27,9 @@ class BooksRepository {
     await this.addApiData(bookPm);
     await this.loadApiData();
 
+    // if wants the observer of programmersModel be called,
+    // need to call the Observable object programmersModel.notify()
+    // same as reset() or anywhere else
     this.programmersModel.notify();
   };
 

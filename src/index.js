@@ -10,9 +10,10 @@ function App() {
 
   React.useEffect(() => {
     async function load() {
-      await booksPresenter.load((generatedViewModel) => {
+      const generateViewModel = (generatedViewModel) => {
         copyViewModelToStateViewModel(generatedViewModel);
-      });
+      };
+      await booksPresenter.load(generateViewModel);
     }
     load();
   }, []);
