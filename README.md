@@ -1,2 +1,2 @@
-# LogicRoom_UFT_Module_2_Excercise_2_in_1
+# LogicRoom_UFT_Module_2
 Created with CodeSandbox
